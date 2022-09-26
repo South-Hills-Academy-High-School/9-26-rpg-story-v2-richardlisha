@@ -55,6 +55,9 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         updateChoices()
     }
 })
+/**
+ * start
+ */
 function createConversation () {
     startScript = createScript("Mr. Kao", "IT'S SO HOT! I NEED SOME WATER!", 1)
     nextPage = createScript("Pineapple", "You didn't pay your water bill! Now feel the thunder!", 1)
@@ -144,6 +147,7 @@ function imAnOldMan () {
     blockObject.setAnyProperty(oldman1, AnyProp.NextPage, oldman2)
     blockObject.setStringArrayProperty(oldman2, StrArrayProp.Choices, ["OK here's $2!", "NO MONEY FOR YOU!!"])
     blockObject.setAnyProperty(oldman2, AnyProp.Choice1, happyEnding())
+    blockObject.setAnyProperty(oldman2, AnyProp.Choice2, NOmoneyforyou())
     return oldman1
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -152,6 +156,14 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         updateChoices()
     }
 })
+function NOmoneyforyou () {
+    noMoneyforyou1 = createScript("Mr. Kao", "I'm tired of you always asking me for money! Go AWAY!", 2)
+    noMoneyforyou2 = createScript("Pineapple", "OK, I'll give you deal! Buy two get one free! ", 3)
+    noMoneyforyou3 = createScript("Pineapple", "$4 for 2 water and Cheetos!! :)", 0)
+    blockObject.setAnyProperty(noMoneyforyou1, AnyProp.NextPage, noMoneyforyou2)
+    blockObject.setAnyProperty(noMoneyforyou2, AnyProp.NextPage, noMoneyforyou3)
+    return noMoneyforyou1
+}
 function createScript (characterName: string, text: string, portrait: number) {
     newScript = blockObject.create()
     blockObject.setStringProperty(newScript, StrProp.Name, characterName)
@@ -160,6 +172,9 @@ function createScript (characterName: string, text: string, portrait: number) {
     return newScript
 }
 let newScript: blockObject.BlockObject = null
+let noMoneyforyou3: blockObject.BlockObject = null
+let noMoneyforyou2: blockObject.BlockObject = null
+let noMoneyforyou1: blockObject.BlockObject = null
 let oldman2: blockObject.BlockObject = null
 let oldman1: blockObject.BlockObject = null
 let printingStuff = false
